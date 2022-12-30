@@ -167,20 +167,38 @@ body {
   border-right: 1px solid rgba(0,0,0,.1);
 	background: #fff;
   font-size: var(--sbt-sidebar-font-size);
+	scrollbar-gutter: stable;
 }
 
-#sidebar-primary:hover {
+#sidebar-primary-content:hover {
 	overflow-y: scroll;
 }
 
-
 #sidebar-primary-content {
-  overflow-y: auto;
+	overflow-y: auto;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding: 1rem 1rem 1rem 1.5rem;
   border-top: none;
+}
+
+#sidebar-primary::-webkit-scrollbar {
+    width: 0.3rem;
+    height: 0.3rem;
+}
+
+#sidebar-primary:not(:hover)::-webkit-scrollbar-thumb {
+    visibility: hidden;
+}
+
+#sidebar-primary::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 0.25rem;
+}
+
+#sidebar-primary-content::-webkit-scrollbar {
+	display: none;
 }
 
 #brand-box {
@@ -407,6 +425,10 @@ nav.nav-links ul {
   display: none;
 }
 
+#toggle-button:checked ~ #main-content {
+  margin-left: 5%;
+}
+
 #content-header {
 	opacity: 0;
 	transition-property: opacity;
@@ -419,7 +441,6 @@ nav.nav-links ul {
 
 #content-article {
   padding-left: 2rem;
-  padding-top: 1.5rem;
   padding-right: 2rem;
 }
 
@@ -429,18 +450,6 @@ nav.nav-links ul {
   display: flex;
   margin-top: auto;
   font-size: var(--sbt-font-size-small-1);
-}
-
-#content-article h1, #content-article h2, #content-article h3, #content-article h4, #content-article h5 {
-  color: #000;
-  font-family: var(--pst-font-family-heading);
-  font-weight: 400;
-  line-height: 1.15;
-  margin: 2.75rem 0 1.05rem;
-}
-
-#content-article h3, #content-article h4, #content-article h5 {
- margin-top:1em
 }
 
 h1 {
@@ -474,6 +483,27 @@ h6 {
 }
 h6 {
  font-size:var(--pst-font-size-h6)
+}
+
+
+#content-article h1, #content-article h2, #content-article h3, #content-article h4, #content-article h5 {
+  color: #000;
+  font-family: var(--pst-font-family-heading);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 2.75rem 0 1.05rem;
+}
+
+#content-article h1 {
+  margin: 0rem 0 1.05rem;
+}
+
+#content-article h2, #content-article h3, #content-article h4, #content-article h5 {
+  margin: 2.75rem 0 1.05rem;
+}
+
+#content-article h3, #content-article h4, #content-article h5 {
+ margin-top:1em
 }
 
 p {
@@ -592,9 +622,12 @@ th, td {
   background-color: inherit
 }
 
-code {
-	font-family: monospace, Menlo, Consolas, "DejaVu Sans Mono";
+code, pre {
+	font-family: var(--pst-font-family-monospace);
 	line-height: 1.3rem;
+}
+
+code {
 	background-color: var(--jp-layout-color2);
 	white-space: pre-wrap;
 }
@@ -621,6 +654,14 @@ code {
 }
 
 .cell-output {
+	margin-bottom: 1em;
+}
+
+.output-img:not(:first-child) {
+	margin-top: 1em;
+}
+
+.output-img:not(:last-child) {
 	margin-bottom: 1em;
 }
 

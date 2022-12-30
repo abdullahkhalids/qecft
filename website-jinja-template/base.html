@@ -8,72 +8,46 @@
 
   <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
 
-  <link rel="stylesheet" href="{{ SITEURL }}/static/css/screen.css" type="text/css" />
+  <link rel="stylesheet" href="{{ SITEURL }}/static/css/screen.min.css" type="text/css" />
 <!--  <link rel="stylesheet" href="{{ SITEURL }}/static/css/print.css" media="print" type="text/css" /> -->
 
-<!-- <script>
-    window.MathJax = {
-      "loader": {"load": ["[tex]/physics"]},
-      "tex": {
-        "inlineMath": [['$', '$'], ['\\(', '\\)']],
-        "packages": {"[+]": ["physics"]},
-        "tags": 'ams',
-        "macros": {
-          "e": "\\mathrm{e}",
-          "bigo": "\\mathcal{O}",
-          "set": ["{#1}", 1],
-          "oper": ["\\mathcal{#1}", 1],
-          "st": ["\\mathcal{#1}", 1],
-          "vecs": ["\\mathcal{#1}", 1],
-          "group": ["\\mathcal{#1}", 1],
-          "union": "\\hspace{0.25em}\\cup\\hspace{0.25em}",
-          "iu": "i"
-        }
-      },
-      "options": {
-        "processHtmlClass": "math"
+  <script>
+  window.MathJax = {
+    "loader": {
+      "load": ['input/tex-base', 'output/chtml', 'ui/menu', '[tex]/configMacros', "[tex]/physics", '[tex]/ams']
+    },
+    "tex": {
+      "packages": { "[+]": ['base', 'configMacros', "physics", 'ams'] },
+      "inlineMath": [['$', '$'], ['\\(', '\\)']],
+      "tags": "ams",
+      "macros": {
+        "e": "\\mathrm{e}",
+        "bigo": "\\mathcal{O}",
+        "set": ["{#1}", 1],
+        "oper": ["\\mathcal{#1}", 1],
+        "st": ["\\mathcal{#1}", 1],
+        "vecs": ["\\mathcal{#1}", 1],
+        "group": ["\\mathcal{#1}", 1],
+        "union": "\\hspace{0.25em}\\cup\\hspace{0.25em}",
+        "iu": "i"
       }
+    },
+    "options": {
+      "processHtmlClass": "math"
     }
+  };
   </script>
-  <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
--->
-
-<script>
-window.MathJax = {
-  "loader": {
-    "load": ['input/tex-base', 'output/chtml', 'ui/menu', '[tex]/configMacros', "[tex]/physics", '[tex]/ams']
-  },
-  "tex": {
-    "packages": { "[+]": ['base', 'configMacros', "physics", 'ams'] },
-    "inlineMath": [['$', '$'], ['\\(', '\\)']],
-    "macros": {
-      "e": "\\mathrm{e}",
-      "bigo": "\\mathcal{O}",
-      "set": ["{#1}", 1],
-      "oper": ["\\mathcal{#1}", 1],
-      "st": ["\\mathcal{#1}", 1],
-      "vecs": ["\\mathcal{#1}", 1],
-      "group": ["\\mathcal{#1}", 1],
-      "union": "\\hspace{0.25em}\\cup\\hspace{0.25em}",
-      "iu": "i"
-    }
-  },
-  "options": {
-    "processHtmlClass": "math"
-  }
-};
-</script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js">
-</script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js">
+  </script>
 
 
 
   <link rel="stylesheet" href="{{ SITEURL }}/static/css/codemirror.min.css" type="text/css">
   <link rel="stylesheet" href="{{ SITEURL }}/static/css/jupyter.min.css" type="text/css">
-  <script src="{{ SITEURL }}/static/script/runmode-standalone.js"></script>
-  <script src="{{ SITEURL }}/static/script/colorize.js"></script>
-  <script src="{{ SITEURL }}/static/script/python.js"></script>
+  <script defer="defer" src="{{ SITEURL }}/static/script/runmode-standalone.js"></script>
+  <script defer="defer" src="{{ SITEURL }}/static/script/colorize.js"></script>
+  <script defer="defer" src="{{ SITEURL }}/static/script/python.js"></script>
 
 </head>
 
@@ -109,6 +83,11 @@ window.MathJax = {
 
           {% block navigation %}
           {% endblock %}
+          <script>
+            current_toc_section = document.getElementsByClassName('active')[0];
+            sidebar_scroll = document.getElementById('sidebar-primary-content');
+            sidebar_scroll.scrollTo(0,current_toc_section.offsetTop - (window.innerHeight / 2)) 
+          </script>
 
         </div>
       </div>
@@ -143,9 +122,11 @@ window.MathJax = {
 
 </div>
 
-<script>setTimeout(function(){CodeMirror.colorize(
-  document.getElementsByClassName('code-source'),
-  'python'
-);}, 20);</script>
+<script>
+  setTimeout(function(){CodeMirror.colorize(
+    document.getElementsByClassName('code-source'),
+    'python'
+  );}, 20);
+</script>
 
 </body>

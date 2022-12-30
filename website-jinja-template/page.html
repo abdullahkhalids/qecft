@@ -4,14 +4,14 @@
 
 {% block navigation %}
   <nav id="nav-toc" class="nav-links">
-    <div class="toc-item navbar-nav active">
+    <div class="navbar-nav">
 
       {% for ch in toc %}
         <p aria-level="2" class="chapter-caption" role="heading"><span class="caption-text">{{ ch.index }}. {{ ch.caption }}</span></p>
         <ul class="chapter-list">
           {% for sec in ch %}
-            <li {% if sec == page %}class="toctree-l1 current active"{% else %}class="toctree-l1"{% endif %}>
-              <a {% if sec == page %}class="reference internal current"{% else %}class="reference internal" {% endif %} href="{{ SITEURL }}/{{ sec.url }}">
+            <li {% if sec == page %}class="active"{% endif %}>
+              <a href="{{ SITEURL }}/{{ sec.url }}">
                 {{ch.index}}.{{ sec.index }} {{ sec.title }}
               </a>
             </li>
@@ -60,7 +60,7 @@
       ℹ
     </a>
 
-    <a href="{{ REPOSITORY }}/issues/new?title=Issue%20on%20page%20%2F{{ page.url }}&body=Your%20issue%20content%20here." target="_blank"
+    <a href="{{ REPOSITORY }}/issues/new?title=Issue%20on%20page%20%2F{{ page.url }}" target="_blank"
     class="headerbtn"
     data-toggle="tooltip"
     data-placement="left"

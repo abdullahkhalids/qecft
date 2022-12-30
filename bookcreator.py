@@ -11,8 +11,8 @@ from jinja2 import Environment, FileSystemLoader
 
 SITENAME = 'A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation'
 #SITEURL = 'http://localhost:8000'
-#SITEURL = 'http://localhost:8000/qecft'
-SITEURL = 'qecft'
+SITEURL = 'http://localhost:8000/qecft'
+#SITEURL = 'qecft'
 REPOSITORY = 'https://github.com/abdullahkhalids/qecft'
 BUILDDIR = 'build'
 SOURCEDIR = 'chapters'

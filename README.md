@@ -7,7 +7,7 @@ The notebooks for the book are available under the `chapters` directory.
 I use python3.10 for building the book. To build the book, ideally first create a virtual environment, and activate it.
 ```
 virtualenv -p python3.10 ../envqecft
-source ../envorganic/bin/activate
+source ../envqecft/bin/activate
 ```
 
 Then install dependencies and then run the creation script.
@@ -15,7 +15,7 @@ Then install dependencies and then run the creation script.
 pip install -r requirements.txt
 python ./bookcreator.py
 ```
-To quickly rebuild the book, run `make`.
+To quickly rebuild the book, run `make`. This will also minify the css files.
 
 
 ## License

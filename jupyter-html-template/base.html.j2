@@ -49,7 +49,7 @@ unknown type  {{ cell.type }}
 {%- endblock execute_result %}
 
 {% block stream_stdout -%}
-<div class="output_stream">
+<div class="output-stream">
 <pre>
 {{- output.text | ansi2html -}}
 </pre>
@@ -57,7 +57,7 @@ unknown type  {{ cell.type }}
 {%- endblock stream_stdout %}
 
 {% block stream_stderr -%}
-<div class="output_stream">
+<div class="output-stream">
 <pre>
 {{- output.text | ansi2html -}}
 </pre>
@@ -65,7 +65,7 @@ unknown type  {{ cell.type }}
 {%- endblock stream_stderr %}
 
 {% block data_svg scoped -%}
-<div class="output_img">
+<div class="output-img">
 {%- if output.svg_filename %}
 <img src="{{ output.svg_filename | posix_path | escape_html }}">
 {%- else %}
@@ -75,7 +75,7 @@ unknown type  {{ cell.type }}
 {%- endblock data_svg %}
 
 {% block data_html scoped -%}
-<div class="output_html">
+<div class="output-html">
 {%- if resources.should_sanitize_html %}
 {%- set html_value=output.data['text/html'] | clean_html -%}
 {%- else %}
@@ -101,13 +101,13 @@ unknown type  {{ cell.type }}
 {%- else %}
 {%- set html_value=output.data['text/markdown'] | markdown2html -%}
 {%- endif %}
-<div class="output_html">
+<div class="output-html">
 {{ html_value }}
 </div>
 {%- endblock data_markdown %}
 
 {% block data_png scoped %}
-<div class="output_img">
+<div class="output-img">
 {%- if 'image/png' in output.metadata.get('filenames', {}) %}
 <img src="{{ output.metadata.filenames['image/png'] | posix_path | escape_html }}"
 {%- else %}
@@ -133,7 +133,7 @@ alt="{{ alttext | escape_html }}"
 {%- endblock data_png %}
 
 {% block data_jpg scoped %}
-<div class="output_img">
+<div class="output-img">
 {%- if 'image/jpeg' in output.metadata.get('filenames', {}) %}
 <img src="{{ output.metadata.filenames['image/jpeg'] | posix_path | escape_html }}"
 {%- else %}
@@ -165,7 +165,7 @@ alt="{{ alttext | escape_html }}"
 {%- endblock data_latex %}
 
 {% block error -%}
-<div class="output_text">
+<div class="output-text">
 <pre>
 {{- super() -}}
 </pre>
@@ -177,7 +177,7 @@ alt="{{ alttext | escape_html }}"
 {%- endblock traceback_line %}
 
 {%- block data_text scoped %}
-<div class="output_text">
+<div class="output-text">
 <pre>
 {{- output.data['text/plain'] | ansi2html -}}
 </pre>
@@ -186,7 +186,7 @@ alt="{{ alttext | escape_html }}"
 
 {%- block data_javascript scoped %}
 {% set div_id = uuid4() %}
-<div id="{{ div_id }}" class="output_javascript">
+<div id="{{ div_id }}" class="output-javascript">
 {%- if not resources.should_sanitize_html %}
 <script type="text/javascript">
 var element = $('#{{ div_id }}');
@@ -201,7 +201,7 @@ var element = $('#{{ div_id }}');
 {% set div_id = uuid4() %}
 {% set datatype_list = output.data | filter_data_type %}
 {% set datatype = datatype_list[0]%}
-<div id="{{ div_id }}" class="output_widget_view">
+<div id="{{ div_id }}" class="output-widget-view">
 <script type="text/javascript">
 var element = $('#{{ div_id }}');
 </script>
