@@ -1,0 +1,9 @@
+pauli-group
+stabilizer-states
+stabilizer-groups
+stabilizer-codes
+vector-form-of-pauli-operators-and-generator-matrix
+some-common-codes
+encoding-circuits-for-stabilizer-codes
+decoding-circuits
+syndrome-measurements

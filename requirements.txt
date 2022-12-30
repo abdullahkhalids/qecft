@@ -1,0 +1,5 @@
+nbconvert>=7.2.7
+nbformat>=5.7.1
+Jinja2>=3.1.2
+traitlets>=5.8.0
+

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }} | {{ page.title }}{% endblock %}
+
+{% block navigation %}
+  <nav id="nav-toc" class="nav-links">
+    <div class="toc-item navbar-nav active">
+
+      {% for ch in toc %}
+        <p aria-level="2" class="chapter-caption" role="heading"><span class="caption-text">{{ ch.index }}. {{ ch.caption }}</span></p>
+        <ul class="chapter-list">
+          {% for sec in ch %}
+            <li {% if sec == page %}class="toctree-l1 current active"{% else %}class="toctree-l1"{% endif %}>
+              <a {% if sec == page %}class="reference internal current"{% else %}class="reference internal" {% endif %} href="{{ SITEURL }}/{{ sec.url }}">
+                {{ch.index}}.{{ sec.index }} {{ sec.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+
+    </div>
+  </nav>
+{% endblock %}
+
+
+{%- block content_header %}
+<div id="content-header-inner">
+  <div id="content-header-left">
+    <label for="toggle-button"
+    class="headerbtn"
+    data-toggle="tooltip"
+    data-placement="right"
+    title="Toggle navigation"
+    >
+      ☰
+    </label>
+  </div>
+
+  <div id="content-header-right">
+    <button onclick="  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }"
+    class="headerbtn"
+    data-toggle="tooltip"
+    data-placement="bottom"
+    title="Fullscreen mode"
+    >
+      ⛶
+    </button>
+
+    <a href="{{ REPOSITORY }}" target="_blank"
+    class="headerbtn"
+    data-toggle="tooltip"
+    data-placement="left"
+    title="Source repository"
+    >
+      ℹ
+    </a>
+
+    <a href="{{ REPOSITORY }}/issues/new?title=Issue%20on%20page%20%2F{{ page.url }}&body=Your%20issue%20content%20here." target="_blank"
+    class="headerbtn"
+    data-toggle="tooltip"
+    data-placement="left"
+    title="Open an issue"
+    >
+      ⚠
+    </a>
+
+<!--    <a href="../../_sources/notebooks/qec-intro/quantum-repetition-code-for-phase-flips.ipynb" target="_blank"
+    class="headerbtn"
+    data-toggle="tooltip"
+    data-placement="left"
+    title="Download source file"
+    >
+        ⮋
+    </a>-->
+  </div>
+</div>
+{%- endblock %}
+
+{% block content_article %}
+  {{ page.content }}
+  <hr>
+{% endblock %}
+
+{% block content_footer %}
+<div id='prev-next-area'>
+  {% if page.prevpage %}
+  <a id="prev-link" href="{{ SITEURL }}/{{ page.prevpage.url }}" title="previous page">
+    <span class="prev-next-arrow">❰</span>
+    <p class="prev-next-title">{{ page.prevpage.ch_index }}.{{ page.prevpage.index }} {{ page.prevpage.title }}</p>
+  </a>
+  {% endif %}
+  {% if page.nextpage %}
+  <a id="next-link" href="{{ SITEURL }}/{{ page.nextpage.url }}" title="next page">
+    <p class="prev-next-title">{{ page.nextpage.ch_index }}.{{ page.nextpage.index }} {{ page.nextpage.title }}</p>
+    <span class="prev-next-arrow">❱</span>
+  </a>
+  {% endif %}
+</div>
+{% endblock %}

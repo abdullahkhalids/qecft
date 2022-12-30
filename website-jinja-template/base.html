@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+
+  <link rel="stylesheet" href="{{ SITEURL }}/static/css/screen.css" type="text/css" />
+<!--  <link rel="stylesheet" href="{{ SITEURL }}/static/css/print.css" media="print" type="text/css" /> -->
+
+<!-- <script>
+    window.MathJax = {
+      "loader": {"load": ["[tex]/physics"]},
+      "tex": {
+        "inlineMath": [['$', '$'], ['\\(', '\\)']],
+        "packages": {"[+]": ["physics"]},
+        "tags": 'ams',
+        "macros": {
+          "e": "\\mathrm{e}",
+          "bigo": "\\mathcal{O}",
+          "set": ["{#1}", 1],
+          "oper": ["\\mathcal{#1}", 1],
+          "st": ["\\mathcal{#1}", 1],
+          "vecs": ["\\mathcal{#1}", 1],
+          "group": ["\\mathcal{#1}", 1],
+          "union": "\\hspace{0.25em}\\cup\\hspace{0.25em}",
+          "iu": "i"
+        }
+      },
+      "options": {
+        "processHtmlClass": "math"
+      }
+    }
+  </script>
+  <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+-->
+
+<script>
+window.MathJax = {
+  "loader": {
+    "load": ['input/tex-base', 'output/chtml', 'ui/menu', '[tex]/configMacros', "[tex]/physics", '[tex]/ams']
+  },
+  "tex": {
+    "packages": { "[+]": ['base', 'configMacros', "physics", 'ams'] },
+    "inlineMath": [['$', '$'], ['\\(', '\\)']],
+    "macros": {
+      "e": "\\mathrm{e}",
+      "bigo": "\\mathcal{O}",
+      "set": ["{#1}", 1],
+      "oper": ["\\mathcal{#1}", 1],
+      "st": ["\\mathcal{#1}", 1],
+      "vecs": ["\\mathcal{#1}", 1],
+      "group": ["\\mathcal{#1}", 1],
+      "union": "\\hspace{0.25em}\\cup\\hspace{0.25em}",
+      "iu": "i"
+    }
+  },
+  "options": {
+    "processHtmlClass": "math"
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js">
+</script>
+
+
+
+  <link rel="stylesheet" href="{{ SITEURL }}/static/css/codemirror.min.css" type="text/css">
+  <link rel="stylesheet" href="{{ SITEURL }}/static/css/jupyter.min.css" type="text/css">
+  <script src="{{ SITEURL }}/static/script/runmode-standalone.js"></script>
+  <script src="{{ SITEURL }}/static/script/colorize.js"></script>
+  <script src="{{ SITEURL }}/static/script/python.js"></script>
+
+</head>
+
+<body>
+
+  <div id="body-container">
+
+    <div id="body-container-inner">
+
+      <input id="toggle-button" type="checkbox">
+      <div id="sidebar-primary">
+        <div id="sidebar-primary-content">
+          <div id="brand-box">
+            <a id="brand-link" class="text-wrap" href="{{ SITEURL }}/index.html">
+              <h1 id="brand-title">
+                {{ SITENAME }}
+              </h1>
+            </a>
+          </div>
+
+          <form id="search-box" action="../../search.html" method="get">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search"
+              class="form-control"
+              name="q" id="search-input"
+              placeholder="Search the docs ..."
+              aria-label="Search the docs ..."
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false">
+          </form>
+
+          {% block navigation %}
+          {% endblock %}
+
+        </div>
+      </div>
+
+      <main id="main-content">
+
+        <div id="main-container">
+
+          <div id="main-container-inner">
+
+            <div id="content-header">
+              {%- block content_header %}{%- endblock %}
+            </div>
+
+
+            <article id="content-article" role="main">
+              {%- block content_article -%}{%- endblock -%}
+            </article>
+
+
+            <div id="content-footer">
+              {%- block content_footer -%}{%- endblock -%}
+            </div>
+
+          </div>
+
+      </div>
+
+      </main>
+
+    </div>
+
+</div>
+
+<script>setTimeout(function(){CodeMirror.colorize(
+  document.getElementsByClassName('code-source'),
+  'python'
+);}, 20);</script>
+
+</body>
