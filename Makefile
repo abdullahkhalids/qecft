@@ -1,5 +1,5 @@
 all:
-	. ../envorganic/bin/activate
+	. ../envqecft/bin/activate
 	python ./bookcreator.py
 
 
