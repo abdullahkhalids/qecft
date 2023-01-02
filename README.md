@@ -2,7 +2,7 @@
 
 This is a mini-book for a senior undergrad or junior graduate student who is already familiar with the fundamentals of quantum computing. This book is authored by [Abdullah Khalid](https://abdullahkhalid.com/).
 
-To read this book, clone this repository and open `contents.ipynb`.
+To read this book, clone this repository and open [contents.ipynb](contents.ipynb).
 
 An online copy of the book is available [here](https://abdullahkhalid.com/qecft/)
 
