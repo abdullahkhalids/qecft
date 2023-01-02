@@ -11,11 +11,12 @@ from jinja2 import Environment, FileSystemLoader
 
 SITENAME = 'A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation'
 #SITEURL = 'http://localhost:8000'
-SITEURL = 'http://localhost:8000/qecft'
-#SITEURL = 'qecft'
+#SITEURL = 'http://localhost:8000/qecft'
+SITEURL = 'https://abdullahkhalid.com/qecft'
 REPOSITORY = 'https://github.com/abdullahkhalids/qecft'
 BUILDDIR = 'build'
 SOURCEDIR = 'chapters'
+FIRST_PAGE_TITLE = 'About this book'
 
 jinja2_config = {
     'comment_start_string': '<!--',
@@ -41,8 +42,6 @@ html_exporter.anchor_link_text = '#'
 file_loader = FileSystemLoader('website-jinja-template')
 env = Environment(loader=file_loader, **jinja2_config)
 template = env.get_template('page.html')
-
-first_section = True
 
 
 def convert_section_to_html(section):
@@ -89,13 +88,8 @@ def create_toc_structure():
 
             rawhtml = html_exporter.from_notebook_node(notebook_node)[0]
 
-            global first_section
-            if first_section:
-                title = "Introduction to this book"
-                first_section = False
-            else:
-                # the title is from the first cell
-                title = notebook_node.cells[0].source[2:]
+            # the title is from the first cell
+            title = notebook_node.cells[0].source[2:]
 
             self.caption = title
             self.title = title
@@ -170,6 +164,9 @@ def create_toc_structure():
                     toc_structure.sections[-2]
 
                 toc_structure.sections[-2].nextpage = section
+                
+    toc_structure.chapters[0].sections[0].title = FIRST_PAGE_TITLE
+    toc_structure.chapters[0].sections[0].caption = FIRST_PAGE_TITLE
 
     return toc_structure
 

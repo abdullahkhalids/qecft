@@ -1,6 +1,23 @@
 # A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation
 
-The notebooks for the book are available under the `chapters` directory.
+This is a mini-book for a senior undergrad or junior graduate student who is already familiar with the fundamentals of quantum computing. This book is authored by [Abdullah Khalid](https://abdullahkhalid.com/).
+
+To read this book, clone this repository and open `contents.ipynb`.
+
+An online copy of the book is available [here](https://abdullahkhalid.com/qecft/)
+
+## Citing
+
+To cite this book, please use the following bibtex entry
+```
+@book{abdullahkhalid2023,
+	title        = {A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation},
+	author       = {Abdullah Khalid},
+	year         = 2023,
+}
+```
+
+
 
 ## Building
 
