@@ -11,9 +11,9 @@ An online copy of the book is available [here](https://abdullahkhalid.com/qecft/
 To cite this book, please use the following bibtex entry
 ```
 @book{abdullahkhalid2023,
-	title        = {A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation},
-	author       = {Abdullah Khalid},
-	year         = 2023,
+  title = {A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation},
+  author = {Abdullah Khalid},
+  year = 2023,
 }
 ```
 
