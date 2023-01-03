@@ -17,8 +17,6 @@ To cite this book, please use the following bibtex entry
 }
 ```
 
-
-
 ## Building
 
 I use python3.10 for building the book. To build the book, ideally first create a virtual environment, and activate it.
@@ -36,4 +34,9 @@ To quickly rebuild the book, run `make`. This will also minify the css files.
 
 
 ## License
-The code cells of this book are licensed under [GPLV3](https://www.gnu.org/licenses/gpl-3.0.txt). The non-code portions are licensed under  [Creative Commons Attribution-NonCommercial-NoDerivs ](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode).
+
+* The theme, is derived from [sphinx-book-theme](https://github.com/executablebooks/sphinx-book-theme), and the folder `website-jinja-template` and `static/css/screen.css` are licensed under the [3-Clause BSD License](LICENSE-bsd-3-clause) license.
+* The non-code portions of the notebooks are licensed under  [Creative Commons Attribution-NonCommercial-NoDerivs ](LICENSE-CC-BY-NC-ND).
+* The code cells of this book and any other code in the repository is licensed under [GPLV3](LICENSE-GPL3).
+
+
