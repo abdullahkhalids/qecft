@@ -183,4 +183,5 @@ if __name__ == "__main__":
         for sec in ch:
             convert_section_to_html(sec)
 
-    shutil.copy('build/introduction/book/index.html', 'build/index.html')
+    home_page_path = os.path.join(BUILDDIR, 'index.html')
+    shutil.copy(toc_structure.chapters[0].sections[0].target_file, home_page_path)

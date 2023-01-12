@@ -39,4 +39,8 @@ To quickly rebuild the book, run `make`. This will also minify the css files.
 * The non-code portions of the notebooks are licensed under  [Creative Commons Attribution-NonCommercial-NoDerivs ](LICENSE-CC-BY-NC-ND).
 * The code cells of this book and any other code in the repository is licensed under [GPLV3](LICENSE-GPL3).
 
+## Acknowledgements
+
+The initial drafts of this book were produced with the help of a grant by the [Unitary Fund](https://unitary.fund/grants.html).
+
 
