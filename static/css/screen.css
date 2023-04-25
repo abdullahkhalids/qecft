@@ -660,6 +660,10 @@ code {
 	margin-bottom: 1em;
 }
 
+.output-img {
+	overflow-x: scroll;
+}
+
 .output-img:not(:first-child) {
 	margin-top: 1em;
 }
