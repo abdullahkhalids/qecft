@@ -429,7 +429,7 @@ nav.nav-links ul {
 }
 
 #content-header {
-	opacity: 0;
+	opacity: 0.3;
 	transition-property: opacity;
 	transition-duration: 0.5s;
 }
@@ -617,8 +617,12 @@ th, td {
 	vertical-align: top;
 }
 
+#content-article pre:not(.code-block) {
+	margin-bottom: 1.15rem;
+}
+
 #content-article pre:not(.code-block) code {
-  background-color: inherit
+  background-color: inherit;
 }
 
 code, pre {
