@@ -17,7 +17,7 @@ To cite this book, please use the following bibtex entry
 }
 ```
 
-## Building
+## Building the html version
 
 I use python3.10 for building the book. To build the book, ideally first create a virtual environment, and activate it.
 ```
@@ -36,7 +36,7 @@ Finally, you can build or rebuild the book as follows.
 make
 ```
 
-## Table of contents for the jupyter notebooks
+## Building the table of contents for the jupyter notebooks
 The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
 
 ## License
