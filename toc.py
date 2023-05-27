@@ -17,11 +17,11 @@ toc_structure = bookcreator.create_toc_structure()
 
 contents_str = '## Table of Contents\n\n'
 
-for ch in toc_structure.chapters:
-    contents_str += f'### {ch.caption} \n\n'
+for i, ch in enumerate(toc_structure.chapters):
+    contents_str += f'### {i+1}. {ch.caption}\n\n'
 
-    for sec in ch:
-        contents_str += f'* [{sec.caption}]({sec.source})\n'
+    for j, sec in enumerate(ch):
+        contents_str += f'[{i+1}.{j+1} {sec.caption}]({sec.source})\n\n'
 
     contents_str += '\n'
 

@@ -25,13 +25,19 @@ virtualenv -p python3.10 ../envqecft
 source ../envqecft/bin/activate
 ```
 
-Then install dependencies and then run the creation script.
+Then install dependencies.
 ```
 pip install -r requirements.txt
-python ./bookcreator.py
 ```
-To quickly rebuild the book, run `make`. This will also minify the css files.
 
+Finally, you can build or rebuild the book as follows. 
+
+```
+make
+```
+
+## Table of contents for the jupyter notebooks
+The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
 
 ## License
 
