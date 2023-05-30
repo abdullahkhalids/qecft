@@ -3,7 +3,7 @@ SHELL := /bin/bash
 .SILENT:
 
 all:
-	source ../envqecft/bin/activate
+	source envqecft/bin/activate
 	python ./bookcreator.py
 	echo "Minifying css files in build/static/css/"
 	css-html-js-minify build/static/css/ >/dev/null 2>&1

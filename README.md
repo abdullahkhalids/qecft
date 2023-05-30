@@ -21,8 +21,9 @@ To cite this book, please use the following bibtex entry
 
 I use python3.10 for building the book. To build the book, ideally first create a virtual environment.
 ```
-virtualenv -p python3.10 ../envqecft
-source ../envqecft/bin/activate
+python -m pip install virtualenv # if you don't already have this installed
+virtualenv -p python3.10 envqecft
+source envqecft/bin/activate
 ```
 
 Then install dependencies.
