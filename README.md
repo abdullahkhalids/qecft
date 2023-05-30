@@ -19,7 +19,7 @@ To cite this book, please use the following bibtex entry
 
 ## Building the html version
 
-I use python3.10 for building the book. To build the book, ideally first create a virtual environment, and activate it.
+I use python3.10 for building the book. To build the book, ideally first create a virtual environment.
 ```
 virtualenv -p python3.10 ../envqecft
 source ../envqecft/bin/activate
@@ -34,6 +34,12 @@ Finally, you can build or rebuild the book as follows.
 
 ```
 make
+```
+
+If you want to host the site locally for testing purposes, open `bookcreator.py` and set `SITEURL = 'http://localhost:8000'`. Then, launch a local web server with
+
+```
+python -m http.server -d build
 ```
 
 ## Building the table of contents for the jupyter notebooks
