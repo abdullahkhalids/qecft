@@ -143,9 +143,10 @@ def convert_section_to_html(section):
     j2_vars['toc'] = toc_structure
 
     os.makedirs(section.target_dir)
-    with open(section.target_file, 'w') as f:
+    with open(section.target_file, 'w', encoding='utf-8') as f:
         # convert the section into html and write to file
-        f.write(template.render(**j2_vars))
+        html_page = template.render(**j2_vars)
+        f.write(html_page)
 
 
 def process_static_resources():
