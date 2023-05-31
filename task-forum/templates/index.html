@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+
+    <!-- Display Isso comments section -->
+    <div id="isso-thread"></div>
+
+    <script src="//localhost:8080/js/embed.min.js"></script>
+    <script>
+        var issoConfig = {
+            // Isso server endpoint
+            'host': 'http://localhost:8080/',
+            // Placeholder element ID
+            'target': 'isso-thread',
+            // Enable comments on this page
+            'thread': '{{ request.path }}',
+        };
+    </script>
+</body>
+</html>
