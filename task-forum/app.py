@@ -5,12 +5,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # Render your website template
     return render_template('index.html')
 
 @app.route('/isso')
 def isso_endpoint():
-    # Handle Isso comments
     return isso.dispatch(request)
 
 if __name__ == '__main__':
