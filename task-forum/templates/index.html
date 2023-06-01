@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <div id="isso-thread"></div>
+
+    <script src="//localhost:8080/js/embed.min.js"></script>
+    <script>
+        var issoConfig = {
+            'host': 'http://localhost:8080/',
+            'target': 'isso-thread',
+            'thread': '{{ request.path }}',
+        };
+    </script>
+</body>
+</html>
