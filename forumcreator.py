@@ -43,6 +43,27 @@ file_loader = FileSystemLoader('website-jinja-template')
 env = Environment(loader=file_loader, **jinja2_config)
 template = env.get_template('page.html')
 
+def generate_home():
+    """Generate the home index.html page."""
+    target_file = os.path.join(BUILDDIR, 'index.html')
+
+    # You can modify the content of the home page as needed
+    content = """
+    <html>
+    <head>
+        <title>Tasks</title>
+    </head>
+    <body>
+        <h1>Welcome to the Tasks Page</h1>
+        <p>This is the home page of your website.</p>
+        <p>Checkout /task-1 or /task-2 to view tasks</p>
+    </body>
+    </html>
+    """
+
+    with open(target_file, 'w', encoding='utf-8') as f:
+        f.write(content)
+
 # change the localhost:8017 according to your respective Listen URL in isso.cfg
 ISSO_CONFIG = """
 <div id="isso-thread"></div>
@@ -55,7 +76,6 @@ ISSO_CONFIG = """
     };
 </script>
 """
-
 
 def convert_task_to_html(task_number, question):
     """Convert task to HTML page."""
@@ -90,5 +110,8 @@ if __name__ == "__main__":
 
         task_number = os.path.splitext(task)[0]
         convert_task_to_html(task_number, question)
+
+    print("Generating Home page")
+    generate_home()
 
     print("HTML conversion complete")
