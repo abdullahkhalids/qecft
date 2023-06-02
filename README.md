@@ -43,6 +43,31 @@ If you want to host the site locally for testing purposes, open `bookcreator.py`
 python -m http.server -d build
 ```
 
+## Building the commenting system
+Commenting System using Isso
+To set up and run the commenting system with Isso, follow these steps:
+
+Start the Flask server by running the following command in your terminal or command prompt:
+
+```bash
+python app.py
+```
+This will start the Flask server and make your website accessible.
+
+Next, start the Isso server. Run the following command in your terminal or command prompt:
+
+```bash
+isso -c isso.cfg run
+```
+This command starts the Isso server using the provided configuration file (isso.cfg).
+
+The Isso server is now running and ready to handle comments. You can visit the host website and test the commenting functionality by leaving comments on the pages.
+
+The dbpath option is set to isso.db, which means the Isso database will be stored in the current directory.
+
+Note: Ensure that the Isso server has write permissions in the current directory to create and access the database file.
+
+
 ## Building the table of contents for the jupyter notebooks
 The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
 
