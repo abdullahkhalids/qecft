@@ -10,7 +10,8 @@ from traitlets.config import Config
 from jinja2 import Environment, FileSystemLoader
 
 # Configuration variables
-SITEURL = 'http://localhost:8000'
+SITEURL = 'http://localhost:8000/'
+LISTENURL = 'http://localhost:8017/'
 SOURCEDIR = 'tasks'
 BUILDDIR = 'build'
 STATIC_FOLDERS = ['static', 'images']
@@ -42,12 +43,13 @@ file_loader = FileSystemLoader('website-jinja-template')
 env = Environment(loader=file_loader, **jinja2_config)
 template = env.get_template('page.html')
 
+# change the localhost:8017 according to your respective Listen URL in isso.cfg
 ISSO_CONFIG = """
 <div id="isso-thread"></div>
-<script src="//localhost:8080/js/embed.min.js"></script>
+<script src="//localhost:8017/js/embed.min.js"></script>
 <script>
     var issoConfig = {
-        'host': 'http://localhost:8080/',
+        'host': 'http://localhost:8017/',
         'target': 'isso-thread',
         'thread': '{{ request.path }}',
     };
