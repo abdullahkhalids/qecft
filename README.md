@@ -45,17 +45,20 @@ python -m http.server -d build
 
 ## Building the commenting system
 Commenting System using Isso
-To set up and run the commenting system with Isso, follow these steps:
+To set up and run the commenting system for the tasks :
 
-Start the Flask server by running the following command in your terminal or command prompt:
-
+run the forumcreator.py
 ```bash
-python app.py
+python forumcreator.py
 ```
-This will start the Flask server and make your website accessible.
+This builds the pages, change the `LISTENURL` according to your configuration in the `isso.cfg`
+
+Now run the server
+```
+python -m http.server -d build
+```
 
 Next, start the Isso server. Run the following command in your terminal or command prompt:
-
 ```bash
 isso -c isso.cfg run
 ```
