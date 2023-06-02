@@ -12,7 +12,7 @@ from jinja2 import Environment, FileSystemLoader
 
 ## Config variables for website
 SITEURL = 'https://abdullahkhalid.com/qecft'
-#SITEURL = 'http://localhost:8000'
+# SITEURL = 'http://localhost:8000'
 
 
 SITENAME = 'A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation'
