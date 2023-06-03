@@ -45,7 +45,7 @@ python -m http.server -d build
 
 ## Building the forum (development)
 
-#### Automatic
+#### Automatic (for unix based systems)
 
 Open the terminal and run
 ```bash
