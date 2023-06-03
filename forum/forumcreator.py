@@ -10,14 +10,27 @@ ISSO_CONFIG = """
 <script src="//localhost:8017/js/embed.min.js"></script>
 <script>
     var issoConfig = {
-        'host': 'http://localhost:8017/',
+        'host': 'http://localhost:5000/',
         'target': 'isso-thread',
         'thread': '{{ request.path }}',
     };
 </script>
 """
 
-# Function to create a new page with Isso comments
+HTML_HEADER = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create New Page</title>
+</head>
+<body>
+"""
+
+HTML_FOOTER = """
+</body>
+</html>
+"""
+
 def create_new_page(section_number, task_number, question):
     page_title = f"Section {section_number} Task {task_number}"
 
@@ -27,15 +40,14 @@ def create_new_page(section_number, task_number, question):
 
     page_directory = "templates"
     os.makedirs(page_directory, exist_ok=True)
-
+    content = f"<h3>Comments</h3>{ISSO_CONFIG}"
     with open(os.path.join(page_directory, page_filename), "w") as file:
+        file.write(HTML_HEADER)
         file.write(f"<h1>{page_title}</h1>\n\n")
         file.write(page_contents)
-
-        # Add Isso comments section
-        file.write("\n\n")
-        file.write("<h2>Comments</h2>\n\n")
-        file.write(ISSO_CONFIG)
+        # adding Isso comment section
+        file.write(content)
+        file.write(HTML_FOOTER)
 
     return page_filename
 
@@ -56,7 +68,7 @@ def create_page():
 
 @app.route("/comments/<path:name>")
 def view_comments(name):
-    return render_template(f"{name}")
+    return render_template(name)
 
 
 if __name__ == "__main__":
