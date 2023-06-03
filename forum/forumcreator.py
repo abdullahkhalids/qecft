@@ -1,7 +1,9 @@
-import os
-from datetime import datetime
+from flask import Flask, render_template, request, redirect
 from nbconvert.filters import markdown2html
+import os
 
+
+app = Flask(__name__)
 
 ISSO_CONFIG = """
 <div id="isso-thread"></div>
@@ -17,22 +19,16 @@ ISSO_CONFIG = """
 
 # Function to create a new page with Isso comments
 def create_new_page(section_number, task_number, question):
-    # Generate page title
     page_title = f"Section {section_number} Task {task_number}"
 
-    # Generate page contents (markdown to HTML)
     page_contents = markdown2html(question)
 
-    # Generate page filename
     page_filename = f"section_{section_number}_task_{task_number}.html"
 
-    # Create page directory if it doesn't exist
-    page_directory = "pages"
+    page_directory = "templates"
     os.makedirs(page_directory, exist_ok=True)
 
-    # Create the new page file
     with open(os.path.join(page_directory, page_filename), "w") as file:
-        # Write page title and contents
         file.write(f"<h1>{page_title}</h1>\n\n")
         file.write(page_contents)
 
@@ -41,19 +37,27 @@ def create_new_page(section_number, task_number, question):
         file.write("<h2>Comments</h2>\n\n")
         file.write(ISSO_CONFIG)
 
-    # Print success message
-    print(f"Page created: {os.path.join(page_directory, page_filename)}")
-
-# User inputs
-section_number = "2.1"
-task_number = "3"
-question = '''#### Task 1
-Complete the function repetition_encode that when passed a bit string, encodes it according to the repetition code.
-
-Parameters:\message a str, guaranteed to only contain 0 or 1.
-Returns:\
-A str that is the the encoded version of the message'''
+    return page_filename
 
 
-# Create new page with Isso comments
-create_new_page(section_number, task_number, question)
+@app.route("/", methods=["GET", "POST"])
+def create_page():
+    if request.method == "POST":
+        section_number = request.form.get("section_number")
+        task_number = request.form.get("task_number")
+        question = request.form.get("question")
+
+        page_filename = create_new_page(section_number, task_number, question)
+
+        return redirect(f"/comments/{page_filename}")
+
+    return render_template("index.html")
+
+
+@app.route("/comments/<path:name>")
+def view_comments(name):
+    return render_template(f"{name}")
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
