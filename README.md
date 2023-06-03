@@ -45,6 +45,16 @@ python -m http.server -d build
 
 ## Building the forum (development)
 
+#### Automatic
+
+Open the terminal and run
+```bash
+./forum.sh
+```
+make sure to give necessary permissions
+
+#### Manual
+
 Install the dependencies.
 ```bash
 pip install -r requirements.txt
