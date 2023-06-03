@@ -1,17 +1,21 @@
+import os
 from flask import Flask, render_template, request, redirect
 from nbconvert.filters import markdown2html
-import os
 
 
 app = Flask(__name__)
 
 ISSO_CONFIG = """
 <div id="isso-thread"></div>
+
 <script src="//localhost:8017/js/embed.min.js"></script>
 <script>
     var issoConfig = {
-        'host': 'http://localhost:5000/',
+        // Isso server endpoint
+        'host': 'http://localhost:8017/',
+        // Placeholder element ID
         'target': 'isso-thread',
+        // Enable comments on this page
         'thread': '{{ request.path }}',
     };
 </script>
@@ -21,7 +25,7 @@ HTML_HEADER = """
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create New Page</title>
+    <title>Task Forum</title>
 </head>
 <body>
 """
@@ -63,6 +67,13 @@ def create_page():
 
         return redirect(f"/comments/{page_filename}")
 
+    # clearing the cache
+    template_directory = "templates"
+    for filename in os.listdir(template_directory):
+        file_path = os.path.join(template_directory, filename)
+        if filename != "index.html":
+            os.remove(file_path)
+
     return render_template("index.html")
 
 
@@ -71,5 +82,5 @@ def view_comments(name):
     return render_template(name)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='localhost', port=8000)
