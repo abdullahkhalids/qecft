@@ -13,9 +13,7 @@ ISSO_CONFIG = """
     var issoConfig = {
         // Isso server endpoint
         'host': 'http://localhost:8017/',
-        // Placeholder element ID
         'target': 'isso-thread',
-        // Enable comments on this page
         'thread': '{{ request.path }}',
     };
 </script>

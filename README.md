@@ -43,6 +43,38 @@ If you want to host the site locally for testing purposes, open `bookcreator.py`
 python -m http.server -d build
 ```
 
+## Building the forum (development)
+
+Install the dependencies.
+```bash
+pip install -r requirements.txt
+```
+
+start the server by opening the terminal
+
+```bash
+cd forum
+python forumcreator.py
+```
+
+Now after starting the server, connect it with the isso by
+```bash
+isso -c isso.cfg run
+```
+This starts the isso with the host and listen defined in the `isso.cfg`
+
+If changing the listen make sure to update in the `forumcreator.py`
+```javascript
+<script src="//localhost:8017/js/embed.min.js"></script>
+<script>
+    var issoConfig = {
+        // Isso server endpoint
+        'host': 'http://localhost:8017/',
+        'target': 'isso-thread',
+        'thread': '{{ request.path }}',
+    };
+```
+
 ## Building the table of contents for the jupyter notebooks
 The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
 
