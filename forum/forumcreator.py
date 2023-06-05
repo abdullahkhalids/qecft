@@ -65,13 +65,6 @@ def create_page():
 
         return redirect(f"/comments/{page_filename}")
 
-    # clearing the cache
-    template_directory = "templates"
-    for filename in os.listdir(template_directory):
-        file_path = os.path.join(template_directory, filename)
-        if filename != "index.html":
-            os.remove(file_path)
-
     return render_template("index.html")
 
 
