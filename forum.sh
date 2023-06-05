@@ -2,7 +2,8 @@
 
 # creating the virtual environment
 echo "Creating the virtual environment"
-python3 -m venv envqecft
+command -v virtualenv >/dev/null 2>&1 || { echo >&2 "virtualenv is not installed. Installing..."; python3 -m pip install virtualenv; }
+python3 -m virtualenv envqecft
 source envqecft/bin/activate
 
 # dependencies
