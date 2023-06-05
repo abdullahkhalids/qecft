@@ -18,5 +18,15 @@
 
         <input type="submit" value="Create Page">
     </form>
+
+    {% if markdown_output %}
+        <h2>Generated Markdown String:</h2>
+        <textarea rows="2" cols="100" readonly>{{ markdown_output }}</textarea>
+    {% endif %}
+
+    {% if link_output %}
+        <h4> Generated Thread </h4>
+        <a href="{{ link_output }}">Generated Discussion Link</a>
+    {% endif %}
 </body>
 </html>

@@ -1,7 +1,6 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, render_template_string
 from nbconvert.filters import markdown2html
-
 
 app = Flask(__name__)
 
@@ -35,23 +34,23 @@ HTML_FOOTER = """
 
 def create_new_page(section_number, task_number, question):
     page_title = f"Section {section_number} Task {task_number}"
-
     page_contents = markdown2html(question)
-
     page_filename = f"section_{section_number}_task_{task_number}.html"
-
     page_directory = "templates"
     os.makedirs(page_directory, exist_ok=True)
+    
     content = f"<h3>Comments</h3>{ISSO_CONFIG}"
+    
     with open(os.path.join(page_directory, page_filename), "w") as file:
         file.write(HTML_HEADER)
         file.write(f"<h1>{page_title}</h1>\n\n")
         file.write(page_contents)
-        # adding Isso comment section
         file.write(content)
         file.write(HTML_FOOTER)
 
-    return page_filename
+    markdown_string = f"[Discussion](https://abdullahkhalid.com/qecft/solutions/{page_filename})"
+
+    return page_filename, markdown_string
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -61,17 +60,15 @@ def create_page():
         task_number = request.form.get("task_number")
         question = request.form.get("question")
 
-        page_filename = create_new_page(section_number, task_number, question)
-
-        return redirect(f"/comments/{page_filename}")
+        page_filename, markdown_string = create_new_page(section_number, task_number, question)
+        link_output = f"/comments/{page_filename}"
+        return render_template("index.html", markdown_output=markdown_string, link_output=link_output)
 
     return render_template("index.html")
-
 
 @app.route("/comments/<path:name>")
 def view_comments(name):
     return render_template(name)
-
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8000)
