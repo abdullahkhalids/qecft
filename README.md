@@ -50,32 +50,32 @@ The `contents.ipynb` file is created using the python script `toc.py`. This shou
 
 #### Automatic (for unix based systems)
 
-Open the terminal and run
+Open the terminal and run the following command
 ```bash
 ./forum.sh
 ```
-make sure to give necessary permissions
+Make sure to give the necessary permissions to the script.
 
 #### Manual
 
-Install the dependencies.
+Install the required dependencies by running the following command:
 ```bash
 pip install -r requirements.txt
 ```
 
-start the server by opening the terminal
+start the server by opening the terminal and running the command
 ```bash
 cd forum
 python forumcreator.py
 ```
 
-Now after starting the server, connect it with the isso by
+Connect the server with Isso by executing the following command in the terminal:
 ```bash
 isso -c isso.cfg run
 ```
-This starts the isso with the host and listen defined in the `isso.cfg`
+This command starts Isso with the `host` and `listen` configurations defined in the [isso.cfg](/forum/isso.cfg) file.
 
-If changing the listen make sure to update in the `forumcreator.py`
+> Note: If you want to change the listen configuration, make sure to update it in the [forumcreator.py](/forum/forumcreator.py) file.
 ```javascript
 <script src="//localhost:8017/js/embed.min.js"></script>
 <script>
