@@ -43,6 +43,9 @@ If you want to host the site locally for testing purposes, open `bookcreator.py`
 python -m http.server -d build
 ```
 
+## Building the table of contents for the jupyter notebooks
+The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
+
 ## Building the forum (development)
 
 #### Automatic (for unix based systems)
@@ -61,7 +64,6 @@ pip install -r requirements.txt
 ```
 
 start the server by opening the terminal
-
 ```bash
 cd forum
 python forumcreator.py
@@ -83,10 +85,8 @@ If changing the listen make sure to update in the `forumcreator.py`
         'target': 'isso-thread',
         'thread': '{{ request.path }}',
     };
+</script>
 ```
-
-## Building the table of contents for the jupyter notebooks
-The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
 
 ## License
 
