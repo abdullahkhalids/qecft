@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Task</title>
+</head>
+<body>
+    <h1>Create New Task Discussion</h1>
+
+    <form method="POST">
+        <label for="section_number">Section Number:</label>
+        <input type="text" id="section_number" name="section_number"><br><br>
+
+        <label for="task_number">Task Number:</label>
+        <input type="text" id="task_number" name="task_number"><br><br>
+
+        <label for="question">Question:</label><br>
+        <textarea id="question" name="question" rows="5" cols="50"></textarea><br><br>
+
+        <input type="submit" value="Create Page">
+    </form>
+
+    {% if markdown_output %}
+        <h2>Generated Markdown String:</h2>
+        <textarea rows="2" cols="100" readonly>{{ markdown_output }}</textarea>
+    {% endif %}
+
+    {% if link_output %}
+        <h4> Generated Thread </h4>
+        <a href="{{ link_output }}">Generated Discussion Link</a>
+    {% endif %}
+</body>
+</html>

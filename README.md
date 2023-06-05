@@ -46,6 +46,48 @@ python -m http.server -d build
 ## Building the table of contents for the jupyter notebooks
 The `contents.ipynb` file is created using the python script `toc.py`. This should be run every time there are any changes in the table of contents. This script depends on two parts. Inside `chapters` and every subfolder there is an `order` file, containing a list of file names. This file specifies the order of the chapters and sections respectively. Inside each subfoler, there is additionally a `caption` file that specifies the name of the chapter, as it appears in the table of contents.
 
+## Building the forum (development)
+
+#### Automatic (for unix based systems)
+
+Open the terminal and run the following command
+```bash
+./forum.sh
+```
+Make sure to give the necessary permissions to the script.
+
+#### Manual
+
+Install the required dependencies by running the following command:
+```bash
+pip install -r requirements.txt
+```
+
+start the server by opening the terminal and running the command
+```bash
+cd forum
+python forumcreator.py
+```
+
+Connect the server with Isso by executing the following command in the terminal:
+```bash
+isso -c isso.cfg run
+```
+This command starts Isso with the `host` and `listen` configurations defined in the [isso.cfg](/forum/isso.cfg) file.
+
+> Note: If you want to change the listen configuration, make sure to update it in the [forumcreator.py](/forum/forumcreator.py) file.
+```javascript
+<script src="//localhost:8017/js/embed.min.js"></script>
+<script>
+    var issoConfig = {
+        // Isso server endpoint
+        'host': 'http://localhost:8017/',
+        'target': 'isso-thread',
+        'thread': '{{ request.path }}',
+    };
+</script>
+```
+
 ## License
 
 * The theme, is derived from [sphinx-book-theme](https://github.com/executablebooks/sphinx-book-theme), and the folder `website-jinja-template` and `static/css/screen.css` are licensed under the [3-Clause BSD License](LICENSE-bsd-3-clause) license.
