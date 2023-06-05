@@ -18,6 +18,5 @@ flask run --port=8000 &
 sleep 5
 
 # Start the Isso server
-cd ..
 echo "Starting Isso server..."
 isso -c isso.cfg
