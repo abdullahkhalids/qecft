@@ -124,6 +124,7 @@ class Toc:
         return self.chapters.__iter__()
 
     def add_section(self, section, ch_index=-1):
+        """add section"""
         self.chapters[ch_index].sections.append(section)
         self.sections.append(section)
 
