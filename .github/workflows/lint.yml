@@ -1,9 +1,6 @@
 name: Lint
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:
@@ -31,7 +28,7 @@ jobs:
 
       - name: Lint docstrings
         run: |
-          pylint --disable=all --enable=pylint.extensions.docparams $(git ls-files '*.py')
+          pylint --disable=all --enable=missing-function-docstring $(git ls-files '*.py')
 
       - name: Raise error if code is not correctly formatted
         run: |
