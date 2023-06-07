@@ -10,9 +10,9 @@ from traitlets.config import Config
 from jinja2 import Environment, FileSystemLoader
 
 
-## Config variables for website
+# Config variables for website
 SITEURL = 'https://abdullahkhalid.com/qecft'
-#SITEURL = 'http://localhost:8000'
+# SITEURL = 'http://localhost:8000'
 
 
 SITENAME = 'A Methods Focused Guide to Quantum Error Correction and Fault-Tolerant Quantum Computation'
@@ -35,7 +35,7 @@ jinja2_config = {
     'extensions': []
 }
 
-## Nbconvert config
+# Nbconvert config
 # These are the config settings for converting the contents of
 # the notebook to html via nbconvert
 c = Config()
@@ -53,7 +53,7 @@ html_exporter.register_preprocessor(TagRemovePreprocessor(config=c), True)
 html_exporter.register_preprocessor(RegexRemovePreprocessor(config=c), True)
 html_exporter.anchor_link_text = '#'
 
-## Jinja config
+# Jinja config
 # The jinja template is used to render the converted notebook html
 # into a complete html page.
 # The template is stored in the following folder and file
@@ -62,8 +62,7 @@ env = Environment(loader=file_loader, **jinja2_config)
 template = env.get_template('page.html')
 
 
-
-## Various classes to make our life easier
+# Various classes to make our life easier
 class Section:
     def __init__(self, ch_dir, sec_filebasename, ch_index, sec_index):
         self.source_dir = os.path.join(SOURCEDIR, ch_dir)
@@ -100,6 +99,7 @@ class Section:
     def __eq__(self, other):
         return self.source == other.source
 
+
 class Chapter:
     def __init__(self, ch_dir, caption, index):
         self.caption = caption
@@ -114,6 +114,7 @@ class Chapter:
     def __len__(self):
         return self.sections.__len__()
 
+
 class Toc:
     def __init__(self):
         self.chapters = []
@@ -125,6 +126,7 @@ class Toc:
     def add_section(self, section, ch_index=-1):
         self.chapters[ch_index].sections.append(section)
         self.sections.append(section)
+
 
 # The jinja template system needs a dictionary of variables
 # to render the contents properly
@@ -203,7 +205,7 @@ def create_toc_structure():
                 # be this section
                 toc_structure.sections[-2].nextpage = \
                     toc_structure.sections[-1]
-                
+
     # Fix the caption for the first section
     toc_structure.chapters[0].sections[0].title = FIRST_SECTION_TITLE
     toc_structure.chapters[0].sections[0].caption = FIRST_SECTION_TITLE
@@ -216,7 +218,7 @@ if __name__ == "__main__":
     print("Converting to HTML now...")
     print("Deleting existing build directory")
     shutil.rmtree('build', ignore_errors=True)
-    
+
     print(f"Copying folders: {STATIC_FOLDERS}")
     process_static_resources()
 
@@ -233,5 +235,6 @@ if __name__ == "__main__":
 
     print("Setting first section as index.html")
     home_page_path = os.path.join(BUILDDIR, 'index.html')
-    shutil.copy(toc_structure.chapters[0].sections[0].target_file, home_page_path)
+    shutil.copy(
+        toc_structure.chapters[0].sections[0].target_file, home_page_path)
     print("html build complete\n")
