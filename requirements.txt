@@ -7,3 +7,4 @@ Flask>=2.3.2
 isso==0.13.0
 pytest-playwright==0.3.3
 beautifulsoup4==4.12.2
+lxml==4.9.2
