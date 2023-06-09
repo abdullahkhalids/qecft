@@ -10,7 +10,7 @@ index_html = Path("build" , "index.html")
 keep_going = True
 
 # this page break is only interpreted when printing as PDF
-page_break = BeautifulSoup('<p style="page-break-before: always">', features="html.parser")
+page_break = BeautifulSoup('<p style="page-break-before: always">', "lxml")
 
 # concatenated pages
 concatenated_pages = []
@@ -18,7 +18,7 @@ curr_section = ""
 
 with open(index_html) as f:
     content = f.read()
-    index_soup = BeautifulSoup(content, features="lxml")
+    index_soup = BeautifulSoup(content, "lxml")
     toc = index_soup.find("div", id="sidebar-primary")
     title = index_soup.find("h1", id="brand-title")
     concatenated_pages.append(title)
@@ -27,7 +27,7 @@ with open(index_html) as f:
     # Add a pagebreak after the title and the TOC
     # Add a placeholder image. The author's favicon will do.
     # Even if it doesn't render, it counts as a dummy image
-    concatenated_pages.append(BeautifulSoup('<img src="build/images/Cover.png">', features="html.parser"))
+    concatenated_pages.append(BeautifulSoup('<img src="build/images/Cover.png">', "lxml"))
     concatenated_pages.append(page_break)
     # Optional: TOC links need to be redirected to those in the book
     # add TOC
@@ -36,7 +36,7 @@ with open(index_html) as f:
 while keep_going:
     with open(index_html) as f:
         content = f.read()
-        soup = BeautifulSoup(content, features="lxml")
+        soup = BeautifulSoup(content, "lxml")
         # find the next link if it's there
         next_link = soup.find("a", id="next-link")
         # select article's content
@@ -65,7 +65,7 @@ while keep_going:
 # convert concatenated pages as string and reparse it
 # although inefficient, it's plenty fast already
 new_html = ''.join(str(s) for s in concatenated_pages)
-new_soup = BeautifulSoup(new_html, features="lxml")
+new_soup = BeautifulSoup(new_html, "lxml")
 
 # load the jinja template
 # need to set comment characters to something else to avoid mathjax clashes
@@ -74,7 +74,7 @@ with open("website-jinja-template/base.html") as f:
 
 # substitute the template with the build directory
 base = template.render(SITEURL = "build")
-base_soup = BeautifulSoup(base, features="lxml")
+base_soup = BeautifulSoup(base, "lxml")
 # replace body with the concatenated pages
 base_body = base_soup.find("div", id="body-container")
 base_body.replace_with(new_soup)
