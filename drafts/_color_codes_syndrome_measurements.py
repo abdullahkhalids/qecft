@@ -6,11 +6,11 @@ import bidict
 import networkx as nx
 
 
-def vertices_physical_qubits(d):
+def vertices_physical_qubits(N):
     # Number of qubits in the bottom row
     # Note that the distance of each graph is equiavalent to the number of vertices in the bottom row.
     # We also have N total rows as well.
-    N = 3
+    #N = 3
 
     # create a graph
     H = nx.Graph()
@@ -97,13 +97,14 @@ def vertices_physical_qubits(d):
 
     return faces, H
 
+
 def _color_codes_syndrome_measurements(d):
     '''
     This function creates syndrome measurement circuit with 4.8.8 color code family
 
     Parameter
     -----------
-    d : int > 0
+    d :
         distance
 
     Return
@@ -119,32 +120,62 @@ def _color_codes_syndrome_measurements(d):
     circ.register[0, 1].append(stac.RegisterRegister('t', 1))
 
     for i in range(len(faces)):
-        circ.register[0, 1][0].append(stac.QubitRegister('s', i, 1))
-        circ.register[0, 1][1].append(stac.QubitRegister('s', i, 1))
+        if len(faces[i]) == 4:
+            circ.register[0, 1][0].append(stac.QubitRegister('s', i, 1))
+            circ.register[0, 1][1].append(stac.QubitRegister('s', i, 1))
+        else:
+            circ.register[0, 1][0].append(stac.QubitRegister('s', i, 5))
+            circ.register[0, 1][1].append(stac.QubitRegister('s', i, 5))
 
     qubit_number = list(H.nodes)
 
     for i in range(len(faces)):
-        for j in range(len(faces[i])):
-            print(qubit_number.index(faces[i][j]), faces[i][j])
-            number = qubit_number.index(faces[i][j])
-            circ.append('CX', (0, 0, number), (0, 1, 0, i, 0))
-        circ.append('MR', (0, 1, 0, i, 0))
-        circ.append('TICK')
+        if len(faces[i]) == 4:
+            for j in range(len(faces[i])):
+                # print(qubit_number.index(faces[i][j]), faces[i][j])
+                number = qubit_number.index(faces[i][j])
+                circ.append('CX', (0, 0, number), (0, 1, 0, i, 0))
+            circ.append('MR', (0, 1, 0, i, 0))
+            circ.append('TICK')
 
     for i in range(len(faces)):
-        print(i)
-        circ.append('H', (0, 1, 1, i, 0))
-        for j in range(len(faces[i])):
-            # print(qubit_number.index(faces[i][j]), faces[i][j])
-            number = qubit_number.index(faces[i][j])
-            circ.append('CX', (0, 1, 1, i, 0), (0, 0, number))
-        circ.append('H', (0, 1, 1, i, 0))
-        circ.append('MR', (0, 1, 1, i, 0))
-        circ.append('TICK')
-    
+        # print(i)
+        if len(faces[i]) == 4:
+            circ.append('H', (0, 1, 1, i, 0))
+            for j in range(len(faces[i])):
+                # print(qubit_number.index(faces[i][j]), faces[i][j])
+                number = qubit_number.index(faces[i][j])
+                circ.append('CX', (0, 1, 1, i, 0), (0, 0, number))
+            circ.append('H', (0, 1, 1, i, 0))
+            circ.append('MR', (0, 1, 1, i, 0))
+            circ.append('TICK')
+
+    for i in range(len(faces)):
+        if len(faces[i]) == 8:
+            circ.append('H', (0, 1, 0, i, 0))
+            circ.append('CX', (0, 1, 0, i, 0), (0, 1, 0, i, 1))
+            circ.append('CX', (0, 1, 0, i, 0), (0, 1, 0, i, 2))
+            circ.append('CX', (0, 1, 0, i, 0), (0, 1, 0, i, 3))
+            circ.append('CX', (0, 1, 0, i, 0), (0, 1, 0, i, 4))
+            circ.append('CX', (0, 1, 0, i, 1), (0, 1, 0, i, 0))
+            circ.append('H', (0, 1, 0, i, 0))
+            circ.append('MR', (0, 1, 0, i, 0))
+            circ.append('TICK')
+
+    for i in range(len(faces)):
+        if len(faces[i]) == 8:
+            circ.append('H', (0, 1, 1, i, 0))
+            circ.append('CX', (0, 1, 1, i, 0), (0, 1, 1, i, 1))
+            circ.append('CX', (0, 1, 1, i, 0), (0, 1, 1, i, 2))
+            circ.append('CX', (0, 1, 1, i, 0), (0, 1, 1, i, 3))
+            circ.append('CX', (0, 1, 1, i, 0), (0, 1, 1, i, 4))
+            circ.append('CX', (0, 1, 1, i, 1), (0, 1, 1, i, 0))
+            circ.append('H', (0, 1, 0, i, 0))
+            circ.append('MR', (0, 1, 0, i, 0))
+            circ.append('TICK')
+
     return circ
 
-_color_codes_syndrome_measurements(3)
+print(_color_codes_syndrome_measurements(7))
 
 
