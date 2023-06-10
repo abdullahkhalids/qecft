@@ -130,13 +130,13 @@ def run(playwright):
              display_header_footer=True,
              # margins are required for the header/footer templates
              header_template=' ',
-             # TODO: style footer location
-             footer_template='<span style="font-size: 10px;text-align: right;"><span class="pageNumber"></span></span>',
+             # style footer location
+             footer_template='<span class="pageNumber" style="position: absolute; left: 62%; font-size: 10px;"></span>',
              margin={
-                 "top": "1in",
-                 "right": "1in",
-                 "bottom": "1in",
-                 "left": "1in",
+                 "top": "1cm",
+                 "right": "2cm",
+                 "bottom": "1cm",
+                 "left": "2cm",
              })
     end = time.time()
     print("Took {} seconds to print pdf".format(end - start))
