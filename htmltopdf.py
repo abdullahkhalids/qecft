@@ -99,6 +99,10 @@ for script in base_soup.find_all("script",  src=True):
 for img in base_soup.find_all("img",  src=True): #, id="src"):
     img["src"] = img["src"].replace("../../", "")
 
+# insert additional CSS at the end of the head
+# test_css = BeautifulSoup().new_tag("link", rel="stylesheet", href="https://abdullahkhalid.com/qecft/static/css/codemirror.min.css", type_="text/css")
+# base_soup.head.append(test_css)
+
 # Save HTML to a file
 with open("book.html", "w") as f:
     f.write(str(base_soup))
