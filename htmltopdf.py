@@ -94,10 +94,8 @@ for img in base_soup.find_all("div", class_="cell-output"):
 # Adjust links for relative file paths
 for has_href in base_soup.find_all(href=True):
     has_href["href"] = has_href["href"].replace("https://abdullahkhalid.com/qecft/", "build/")
-for script in base_soup.find_all("script",  src=True): #, id="src"):
+for script in base_soup.find_all("script",  src=True):
     script["src"] = script["src"].replace("https://abdullahkhalid.com/qecft/", "")
-    # use local mathjax instead of cdn to render mathjax in playwright
-    script["src"] = script["src"].replace("https://cdn.jsdelivr.net/npm/mathjax@3.0.0/", "node_modules/mathjax/")
 for img in base_soup.find_all("img",  src=True): #, id="src"):
     img["src"] = img["src"].replace("../../", "")
 
@@ -117,9 +115,11 @@ def run(playwright):
     html = Path("book.html").absolute().as_uri()
     start = time.time()
     # open the page and wait for it to finish
-    page.goto(html, timeout=0)
+    page.goto(html, wait_until="load")
     end = time.time()
     print("Took {} seconds to load page".format(end-start))
+    print("Waiting to load Mathjax")
+    time.sleep(10)
     print("Printing PDF now")
     start = time.time()
     page.pdf(path="book.pdf",
