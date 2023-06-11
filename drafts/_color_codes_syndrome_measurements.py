@@ -35,15 +35,12 @@ def vertices_physical_qubits(N):
     pl = dict()
 
     # heights of each column
-    first_twenty_odd = list(range(1, 20, 2))
-    new_odd = [first_twenty_odd[i] for i in range(0, len(first_twenty_odd), 2)]
-    # heights of each column
-    if N not in new_odd:
-        # Case for N=3, 7, 11...
-        heights = [i for i in range(1, N + 1, 2)] + [i for i in range(N, 2, -2)]
-    else:
+    if (N-1)% 4 == 0:
         # Case for N=5,9,...
         heights = [i for i in range(3, N + 1, 2)] + [i for i in range(N, 0, -2)]
+    else:
+        # Case for N=3, 7, 11...
+        heights = [i for i in range(1, N + 1, 2)] + [i for i in range(N, 2, -2)]
 
     # So lets go column by column
     # [x, y] is the coordinate of the vertex
@@ -72,25 +69,23 @@ def vertices_physical_qubits(N):
             H.add_edge(row_wise[y][i], row_wise[y][i + 1])
 
     # add diagonal edges
-    # Again, I wrote this for N=3,7,11.. It fails for N=5,9.. Correct it.
     for y in range(N):
-        # Case for N=3, 7, 11...
-        if N not in new_odd:
-            # left diagonal edges
-            if y % 4 == 0:
-                H.add_edge(row_wise[y][0], row_wise[y+2][0])
-            # right diagonl edges
-            elif y % 2 == 0 and y < N-1:
-                H.add_edge(row_wise[y][-1], row_wise[y+2][-1])
-        else:
+        if (N-1)% 4 == 0:
             # Case for N=5,9,...
             # left diagonal edges
             if y % 2 == 0 and y < N-1:
                 H.add_edge(row_wise[y][0], row_wise[y+2][0])
-            # right diagonal edges
+                # right diagonal edges
             elif y % 3 == 0:
                 print(y)
                 H.add_edge(row_wise[y-1][-1], row_wise[y-3][-1])
+        else: # Case for N=3, 7, 11...
+            # left diagonal edges
+            if y % 4 == 0:
+                H.add_edge(row_wise[y][0], row_wise[y+2][0])
+                # right diagonl edges
+            elif y % 2 == 0 and y < N-1:
+                H.add_edge(row_wise[y][-1], row_wise[y+2][-1])
     # now draw it, giving networkx the positions of each vertex as well
     #nx.draw(H, pos=pl)
 
