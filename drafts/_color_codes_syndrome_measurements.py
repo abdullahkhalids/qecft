@@ -129,6 +129,7 @@ def _color_codes_syndrome_measurements(d):
 
     qubit_number = list(H.nodes)
 
+    # 4 qubit Z stabilizer
     for i in range(len(faces)):
         if len(faces[i]) == 4:
             for j in range(len(faces[i])):
@@ -138,6 +139,7 @@ def _color_codes_syndrome_measurements(d):
             circ.append('MR', (0, 1, 0, i, 0))
             circ.append('TICK')
 
+    # 4 qubit X stabilizer
     for i in range(len(faces)):
         # print(i)
         if len(faces[i]) == 4:
@@ -150,6 +152,7 @@ def _color_codes_syndrome_measurements(d):
             circ.append('MR', (0, 1, 1, i, 0))
             circ.append('TICK')
 
+    # Preparation of a 4 qubit cat state for the 8 qubit X stabibilizer
     for i in range(len(faces)):
         if len(faces[i]) == 8:
             circ.append('H', (0, 1, 0, i, 0))
@@ -162,6 +165,7 @@ def _color_codes_syndrome_measurements(d):
             circ.append('MR', (0, 1, 0, i, 0))
             circ.append('TICK')
 
+    # Preparation of a 4 qubit cat state for the 8 qubit Z stabibilizer
     for i in range(len(faces)):
         if len(faces[i]) == 8:
             circ.append('H', (0, 1, 1, i, 0))
@@ -170,8 +174,49 @@ def _color_codes_syndrome_measurements(d):
             circ.append('CX', (0, 1, 1, i, 0), (0, 1, 1, i, 3))
             circ.append('CX', (0, 1, 1, i, 0), (0, 1, 1, i, 4))
             circ.append('CX', (0, 1, 1, i, 1), (0, 1, 1, i, 0))
-            circ.append('H', (0, 1, 0, i, 0))
-            circ.append('MR', (0, 1, 0, i, 0))
+            circ.append('H', (0, 1, 1, i, 0))
+            circ.append('MR', (0, 1, 1, i, 0))
+            circ.append('TICK')
+
+    # 8 qubit X stabibilizer
+    for i in range(len(faces)):
+        if len(faces[i]) == 8:
+            counter_x = 1
+            for qubits in range(0, len(faces[i]), 2):
+                # (level, syndrome, type, face, i) = (0, 1, t, f, i)
+                # print(qubit_number.index(faces[i][j]), faces[i][j])
+                number1 = qubit_number.index(faces[i][qubits])
+                number2 = qubit_number.index(faces[i][qubits + 1])
+                circ.append('CX', (0, 1, 1, i, counter_x), (0, 0, number1))
+                circ.append('CX', (0, 1, 1, i, counter_x), (0, 0, number2))
+                print(number1, counter_x)
+                print(number2, counter_x)
+                counter_x = counter_x + 1
+            for k in range(1, 5):
+                circ.append('H', (0, 1, 1, i, k))
+                circ.append('MR', (0, 1, 1, i, k))
+            circ.append('TICK')
+
+    # 8 qubit Z stabibilizer
+    for i in range(len(faces)):
+        if len(faces[i]) == 8:
+            counter_z = 1
+            for k in range(1, 5):
+                circ.append('H', (0, 1, 0, i, k))
+
+            for qubits in range(0, len(faces[i]), 2):
+                # (level, syndrome, type, face, i) = (0, 1, t, f, i)
+                # print(qubit_number.index(faces[i][j]), faces[i][j])
+                number1 = qubit_number.index(faces[i][qubits])
+                number2 = qubit_number.index(faces[i][qubits + 1])
+                circ.append('CX', (0, 0, number1), (0, 1, 0, i, counter_z))
+                circ.append('CX', (0, 0, number2), (0, 1, 0, i, counter_z))
+                print(number1, counter_z)
+                print(number2, counter_z)
+                counter_z = counter_z + 1
+
+            for k in range(1, 5):
+                circ.append('MR', (0, 1, 0, i, k))
             circ.append('TICK')
 
     return circ
