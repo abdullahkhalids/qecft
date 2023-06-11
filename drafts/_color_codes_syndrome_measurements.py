@@ -26,7 +26,16 @@ def vertices_physical_qubits(N):
 
     # heights of each column
     # this only correct for N=3, 7, 11... It is incorrect for N=5,9,... Correct it.
-    heights = [i for i in range(1, N + 1, 2)] + [i for i in range(N, 2, -2)]
+    first_twenty_odd = list(range(1, 20, 2))
+    new = []
+    for i in range(0, len(first_twenty_odd), 2):
+        new.append(first_twenty_odd[i])
+    # heights of each column
+    # this only correct for N=3, 7, 11... It is incorrect for N=5,9,... Correct it.
+    if N not in new:
+        heights = [i for i in range(1, N + 1, 2)] + [i for i in range(N, 2, -2)]
+    else:
+        heights = [i for i in range(3, N + 1, 2)] + [i for i in range(N, 0, -2)]
     # print(heights)
     # print([i for i in range(1,N+1,2)])
     # print( [i for i in range(N, 2, -2)])
@@ -62,13 +71,21 @@ def vertices_physical_qubits(N):
     # add diagonal edges
     # Again, I wrote this for N=3,7,11.. It fails for N=5,9.. Correct it.
     for y in range(N):
-        # left diagonal edges
-        if y % 4 == 0:
-            H.add_edge(row_wise[y][0], row_wise[y + 2][0])
-
+        if N not in new:
+            # left diagonal edges
+            if y % 4 == 0:
+                H.add_edge(row_wise[y][0], row_wise[y+2][0])
         # right diagonl edges
-        elif y % 2 == 0 and y < N - 1:
-            H.add_edge(row_wise[y][-1], row_wise[y + 2][-1])
+            elif y % 2 == 0 and y < N-1:
+                H.add_edge(row_wise[y][-1], row_wise[y+2][-1])
+        else:
+         # left diagonal edges
+            if y % 2 == 0 and y < N-1:
+                H.add_edge(row_wise[y][0], row_wise[y+2][0])
+        # right diagonl edges
+            elif y % 3 == 0:
+                print(y)
+                H.add_edge(row_wise[y-1][-1], row_wise[y-3][-1])
     # now draw it, giving networkx the positions of each vertex as well
     #nx.draw(H, pos=pl)
     # print([i for i in range(1,N+1,2)])
@@ -87,10 +104,16 @@ def vertices_physical_qubits(N):
         # if the face is length 4 and 8 we process more
         # sometimes traverse_face returns big cycles eg. the whole outside of the graph
         # lets throw those away.
-        if len(f) <= 5:
-            # before adding we are going to sort the edges and then turn the list into
-            # a tuple so it can be added to the set.
-            F.add(tuple(sorted(f)))
+        if N > 3:
+            if len(f) <= 8 and len(f) > 3:
+                # before adding we are going to sort the edges and then turn the list into
+                # a tuple so it can be added to the set.
+                F.add(tuple(sorted(f)))
+        else:
+            if len(f) <= 4:
+                # before adding we are going to sort the edges and then turn the list into
+                # a tuple so it can be added to the set.
+                F.add(tuple(sorted(f)))
     # turn the faces set to a list and sort it.
     # not really necessary but nice.
     faces = sorted(list(F))
@@ -221,6 +244,4 @@ def _color_codes_syndrome_measurements(d):
 
     return circ
 
-print(_color_codes_syndrome_measurements(7))
-
-
+print(_color_codes_syndrome_measurements(5))
