@@ -1,0 +1,31 @@
+name: Lint
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint autopep8
+
+      - name: Check code formatting
+        run: |
+          autopep8 --max-line-length=79 --in-place --recursive .
+          git diff --exit-code --color
+
+      - name: Lint docstrings
+        run: |
+          pylint --disable=all --enable=missing-function-docstring $(git ls-files '*.py')

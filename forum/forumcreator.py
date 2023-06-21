@@ -1,3 +1,5 @@
+"""Creates a solution page and integrates with isso"""
+
 import os
 from flask import Flask, render_template, request
 from nbconvert.filters import markdown2html
@@ -32,7 +34,9 @@ HTML_FOOTER = """
 </html>
 """
 
+
 def create_new_page(section_number, task_number, question):
+    """generate page and integrate isso"""
     page_title = f"Section {section_number} Task {task_number}"
     page_contents = markdown2html(question)
     page_filename = f"section_{section_number}_task_{task_number}.html"
@@ -55,22 +59,27 @@ def create_new_page(section_number, task_number, question):
 
 @app.route("/", methods=["GET", "POST"])
 def create_page():
+    """create the home page"""
     if request.method == "POST":
         section_number = request.form.get("section_number")
         task_number = request.form.get("task_number")
         question = request.form.get("question")
-        page_filename, markdown_string = create_new_page(section_number, task_number, question)
+        page_filename, markdown_string = create_new_page(
+            section_number, task_number, question)
         link_output = f"/solutions/{page_filename}"
-        return render_template("createpage/index.html", 
-                                markdown_output=markdown_string,
-                                link_output=link_output
-                            )
+        return render_template("createpage/index.html",
+                               markdown_output=markdown_string,
+                               link_output=link_output
+                               )
 
     return render_template("createpage/index.html")
 
+
 @app.route("/solutions/<path:name>")
 def view_comments(name):
+    """"To display the solutions page"""
     return render_template(f'solutions/{name}')
+
 
 if __name__ == '__main__':
     app.run(host='localhost', port=8000)
