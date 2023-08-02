@@ -14,22 +14,23 @@
   <script>
   window.MathJax = {
     "loader": {
-      "load": ['input/tex-base', 'output/chtml', 'ui/menu', '[tex]/configMacros', "[tex]/physics", '[tex]/ams']
+      "load": ['input/tex-base', 'output/chtml', 'ui/menu', '[tex]/configmacros', "[tex]/physics", '[tex]/ams']
     },
     "tex": {
-      "packages": { "[+]": ['base', 'configMacros', "physics", 'ams'] },
+      "packages": { "[+]": ['base', 'configmacros', "physics", 'ams'] },
       "inlineMath": [['$', '$'], ['\\(', '\\)']],
       "tags": "ams",
       "macros": {
         "e": "\\mathrm{e}",
         "bigo": "\\mathcal{O}",
-        "set": ["{#1}", 1],
+        "set": ["\\{#1\\}", 1],
         "oper": ["\\mathcal{#1}", 1],
         "st": ["\\mathcal{#1}", 1],
         "vecs": ["\\mathcal{#1}", 1],
         "group": ["\\mathcal{#1}", 1],
         "union": "\\hspace{0.25em}\\cup\\hspace{0.25em}",
-        "iu": "i"
+        "iu": "i",
+        "vec": ["\\mathbf{#1}", 1]
       }
     },
     "options": {
@@ -38,7 +39,7 @@
   };
   </script>
   <script type="text/javascript" id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/startup.js">
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js">
   </script>
 
 
