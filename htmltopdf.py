@@ -115,9 +115,9 @@ with open("book.html", "w") as f:
     f.write(str(base_soup))
     print("Wrote book.html")
 
-# Use chromium headless to print HTML to PDF
+
 def run(playwright):
-    """Create the pdf."""
+    """Use chromium headless to print HTML to PDF."""
     chromium = playwright.chromium
     # Flags added for hardware acceleration
     # TODO: renders links different colors if they are visited
@@ -151,6 +151,7 @@ def run(playwright):
     end = time.time()
     print("Took {} seconds to print pdf".format(end - start))
     browser.close()
+
 
 with sync_playwright() as playwright:
     print("Running playwright, please wait...")
