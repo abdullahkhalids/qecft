@@ -1,25 +1,28 @@
-#Contributor: Victor Onofre
-#Licensed under GPLV3
+# Contributor: Victor Onofre
+# Licensed under GPLV3
 
 import stac
 import networkx as nx
 
 
 def vertices_physical_qubits(N):
-    '''
-    Creates graph for coordinates of the vertices/physical qubits with 4.8.8 color code family
+    """
+    Create graph for coordinates of the vertices/physical qubits.
+
+    Only for 4.8.8 color code family.
 
     Parameter
     -----------
     N : distance
 
     Return
-    --------
+    ------
     H : Graph for coordinates of the vertices/physical qubits
     faces: Faces of the graph
-    '''
+    """
     # Number of qubits in the bottom row
-    # Note that the distance of each graph is equiavalent to the number of vertices in the bottom row.
+    # Note that the distance of each graph is equiavalent to the number of
+    # vertices in the bottom row.
     # We also have N total rows as well.
 
     # create a graph
@@ -35,12 +38,14 @@ def vertices_physical_qubits(N):
     pl = dict()
 
     # heights of each column
-    if (N-1)% 4 == 0:
+    if (N-1) % 4 == 0:
         # Case for N=5,9,...
-        heights = [i for i in range(3, N + 1, 2)] + [i for i in range(N, 0, -2)]
+        heights = [i for i in range(3, N + 1, 2)] + \
+            [i for i in range(N, 0, -2)]
     else:
         # Case for N=3, 7, 11...
-        heights = [i for i in range(1, N + 1, 2)] + [i for i in range(N, 2, -2)]
+        heights = [i for i in range(1, N + 1, 2)] + \
+            [i for i in range(N, 2, -2)]
 
     # So lets go column by column
     # [x, y] is the coordinate of the vertex
@@ -70,7 +75,7 @@ def vertices_physical_qubits(N):
 
     # add diagonal edges
     for y in range(N):
-        if (N-1)% 4 == 0:
+        if (N-1) % 4 == 0:
             # Case for N=5,9,...
             # left diagonal edges
             if y % 2 == 0 and y < N-1:
@@ -78,7 +83,7 @@ def vertices_physical_qubits(N):
                 # right diagonal edges
             elif y % 3 == 0:
                 H.add_edge(row_wise[y-1][-1], row_wise[y-3][-1])
-        else: # Case for N=3, 7, 11...
+        else:  # Case for N=3, 7, 11...
             # left diagonal edges
             if y % 4 == 0:
                 H.add_edge(row_wise[y][0], row_wise[y+2][0])
@@ -86,7 +91,7 @@ def vertices_physical_qubits(N):
             elif y % 2 == 0 and y < N-1:
                 H.add_edge(row_wise[y][-1], row_wise[y+2][-1])
     # now draw it, giving networkx the positions of each vertex as well
-    #nx.draw(H, pos=pl)
+    # nx.draw(H, pos=pl)
 
     # First networkx has to check that the graph is indeed planar.
     # the planar embedding (pe) is its record of this.
@@ -100,11 +105,13 @@ def vertices_physical_qubits(N):
         # find a face
         f = pe.traverse_face(*edge)
         # if the face is length 4 and 8 we process more
-        # sometimes traverse_face returns big cycles eg. the whole outside of the graph
+        # sometimes traverse_face returns big cycles eg. the whole outside of
+        # the graph
         # lets throw those away.
         if N > 3:
             if len(f) <= 8 and len(f) > 3:
-                # before adding we are going to sort the edges and then turn the list into
+                # before adding we are going to sort the edges and then turn
+                # the list into
                 # a tuple so it can be added to the set.
                 F.add(tuple(sorted(f)))
         else:
@@ -118,18 +125,17 @@ def vertices_physical_qubits(N):
 
 
 def _color_codes_syndrome_measurements(d):
-    '''
-    Creates syndrome measurement circuit with 4.8.8 color code family
+    """
+    Create syndrome measurement circuit for 4.8.8 color code family.
 
     Parameter
     -----------
     d : distance
 
     Return
-    --------
+    ------
     stac.Circuit with appended gates
-    '''
-
+    """
     # Retrieve graph for coordinates of the vertices/physical qubits and
     # the respective faces of the graph given the distance d
     faces, H = vertices_physical_qubits(d)
@@ -145,7 +151,8 @@ def _color_codes_syndrome_measurements(d):
     # Subregister for X stabilizers ancilla qubits
     circ.register[0, 1].append(stac.RegisterRegister('t', 1))
 
-    # Define number of ancilla qubits in each subregister depending on the face 4 or 8
+    # Define number of ancilla qubits in each subregister depending on the
+    # face 4 or 8
     for i in range(len(faces)):
         if len(faces[i]) == 4:
             circ.register[0, 1][0].append(stac.QubitRegister('f', i, 1))
@@ -242,7 +249,7 @@ def _color_codes_syndrome_measurements(d):
                 circ.append('MR', (0, 1, 0, f, k))
             circ.append('TICK')
 
-    return circ # .draw('text', '7_test.text')
+    return circ
 
 
 print(_color_codes_syndrome_measurements(7))
