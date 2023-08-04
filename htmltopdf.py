@@ -6,7 +6,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 import time
 
-index_html = Path("build" , "index.html")
+index_html = Path("build", "index.html")
 keep_going = True
 
 # this page break is only interpreted when printing as PDF
@@ -27,7 +27,8 @@ with open(index_html) as f:
     # Add a pagebreak after the title and the TOC
     # Add a placeholder image. The author's favicon will do.
     # Even if it doesn't render, it counts as a dummy image
-    concatenated_pages.append(BeautifulSoup('<img src="build/images/Cover.png">', "lxml"))
+    concatenated_pages.append(
+        BeautifulSoup('<img src="build/images/Cover.png">', "lxml"))
     concatenated_pages.append(page_break)
     # Optional: TOC links need to be redirected to those in the book
     # add TOC
@@ -70,10 +71,12 @@ new_soup = BeautifulSoup(new_html, "lxml")
 # load the jinja template
 # need to set comment characters to something else to avoid mathjax clashes
 with open("website-jinja-template/base.html") as f:
-    template = Template(f.read(), comment_start_string="abcde", comment_end_string="abcde")
+    template = Template(f.read(),
+                        comment_start_string="abcde",
+                        comment_end_string="abcde")
 
 # substitute the template with the build directory
-base = template.render(SITEURL = "build")
+base = template.render(SITEURL="build")
 base_soup = BeautifulSoup(base, "lxml")
 # replace body with the concatenated pages
 base_body = base_soup.find("div", id="body-container")
@@ -93,14 +96,18 @@ for img in base_soup.find_all("div", class_="cell-output"):
 
 # Adjust links for relative file paths
 for has_href in base_soup.find_all(href=True):
-    has_href["href"] = has_href["href"].replace("https://abdullahkhalid.com/qecft/", "build/")
+    has_href["href"] = has_href["href"].replace(
+        "https://abdullahkhalid.com/qecft/", "build/")
 for script in base_soup.find_all("script",  src=True):
-    script["src"] = script["src"].replace("https://abdullahkhalid.com/qecft/", "")
-for img in base_soup.find_all("img",  src=True): #, id="src"):
+    script["src"] = script["src"].replace(
+        "https://abdullahkhalid.com/qecft/", "")
+for img in base_soup.find_all("img",  src=True):  # , id="src"):
     img["src"] = img["src"].replace("../../", "")
 
 # insert additional CSS at the end of the head
-# test_css = BeautifulSoup().new_tag("link", rel="stylesheet", href="https://abdullahkhalid.com/qecft/static/css/codemirror.min.css", type_="text/css")
+# test_css = BeautifulSoup().new_tag("link", rel="stylesheet",
+# href="https://abdullahkhalid.com/qecft/static/css/codemirror.min.css",
+# type_="text/css")
 # base_soup.head.append(test_css)
 
 # Save HTML to a file
@@ -110,10 +117,13 @@ with open("book.html", "w") as f:
 
 # Use chromium headless to print HTML to PDF
 def run(playwright):
+    """Create the pdf."""
     chromium = playwright.chromium
     # Flags added for hardware acceleration
     # TODO: renders links different colors if they are visited
-    browser = chromium.launch(headless=True, args=["--incognito", "--use-gl=egl", "--ignore-gpu-blocklist"])
+    browser = chromium.launch(
+        headless=True,
+        args=["--incognito", "--use-gl=egl", "--ignore-gpu-blocklist"])
     context = browser.new_context()
     page = context.new_page()
     html = Path("book.html").absolute().as_uri()
